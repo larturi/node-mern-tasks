@@ -1,19 +1,18 @@
-// Rutas para alta de usuarios y generar JWT
+// Rutas para autenticar usuarios
 
 const express = require('express');
 const router = express.Router();
-const usuarioController = require('../controllers/usuarioController');
 const { check } = require('express-validator');
+const authController = require('../controllers/authController');
 
-// Crear Usuario //
-// api/usuarios
+// Autenticar Usuario //
+// api/auth
 router.post('/', 
     [
-        check('nombre', 'El nombre es obligatorio').not().isEmpty(),
         check('email', 'Ingresa un email valido').isEmail(),
         check('password', 'El password debe tener por lo menos 6 caracteres').isLength({ min: 6 })
     ],
-    usuarioController.crearUsuario
+    authController.autenticarUsuario
 );
 
 module.exports = router;

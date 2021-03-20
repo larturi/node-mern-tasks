@@ -3,7 +3,7 @@ const bcryptjs = require('bcryptjs');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
-exports.crearUsuario = async (req, res) => {
+exports.autenticarUsuario = async (req, res) => {
 
     const errors = validationResult(req);
 
@@ -17,22 +17,20 @@ exports.crearUsuario = async (req, res) => {
     
     try {
 
-        let usuario = await Usuario.findOne({email})
+       let usuario = await Usuario.findOne({email});
 
-        if (usuario) {
-            return res.status(400).json({
-                msg: 'Ya existe un usuario con el email ingresado'
-            });
-        }
+       if (!usuario) {
+           return res.status(400).json({ msg: 'El usuario no existe' });
+       }
 
-        usuario = new Usuario(req.body);
+       const passCorrecto = await bcryptjs.compare(password, usuario.password);
 
-        const salt = await bcryptjs.genSalt(10);
-        usuario.password = await bcryptjs.hash(password, salt);
+       if (!passCorrecto) {
+            return res.status(400).json({ msg: 'Password incorrecto' });
+       }
 
-        await usuario.save();
-
-        const payload = {
+       // Si todo es correcto
+       const payload = {
             usuario: {
                 id: usuario.id
             }
@@ -46,12 +44,11 @@ exports.crearUsuario = async (req, res) => {
             res.status(201).json({
                 token
             });
-
         });
 
     } catch (error) {
         console.error(error);
-        res.status(400).send('Error al insertar nuevo usuario');
+        res.status(400).send('Error al autenticar usuario');
     }
 
-};
+}
