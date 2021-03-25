@@ -43,7 +43,7 @@ exports.getTareas = async (req, res) => {
 
     try {
 
-        const { proyecto } = req.body;
+        const { proyecto } = req.query;
         const existeProyecto = await Proyecto.findById(proyecto);
         
         if (!existeProyecto) {
@@ -55,7 +55,8 @@ exports.getTareas = async (req, res) => {
         }
 
         // Tareas por proyecto
-        const tareas = await Tarea.find({ proyecto });
+        const tareas = await Tarea.find({ proyecto }).sort({ creado: -1 });
+
         res.status(201).json(tareas);
         
     } catch (error) {
@@ -110,7 +111,7 @@ exports.deleteTarea = async (req, res) => {
 
     try {
 
-        const { proyecto } = req.body;
+        const { proyecto } = req.query;
 
         let tarea = await Tarea.findById(req.params.id);
 
