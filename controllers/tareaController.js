@@ -92,8 +92,8 @@ exports.updateTarea = async (req, res) => {
         // Crear objeto con la nueva informacion de la tarea
         const nuevaTarea = {};
 
-        if (nombre) nuevaTarea.nombre = nombre;
-        if (completa) nuevaTarea.completa = completa;
+        nuevaTarea.nombre = nombre;
+        nuevaTarea.completa = completa;
 
         tarea = await Tarea.findOneAndUpdate({ _id: req.params.id }, { $set: nuevaTarea }, { new: true });
 
