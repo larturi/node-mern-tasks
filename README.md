@@ -12,8 +12,6 @@
 
 ## 🚀 Quick start
 
-**Start developing.**
-
 Start in development mode
 
 ```shell
