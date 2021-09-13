@@ -23,5 +23,5 @@ npm run dev
 **Prod**
 
 ```shell
-npm run build 
+npm start 
 ```
