@@ -1,20 +1,25 @@
 # MERN Tasks (Server)
 
-### React, Node and Mongo
+## React, Node and Mongo
 
-## 🚀 Quick start
+### 🚀 Quick start
 
-Start in development mode
+#### Instalar dependencias
+
+```bash
+npm install
+```
+
+#### Para correr localmente se necesita correr la base de datos mongo con docker
+
+```bash
+docker-compose up -d
+```
+
+#### Start in development mode
 
 ```shell
 npm run dev 
 ```
 
-**Prod**
-
-```shell
-npm start 
-```
-
 ##### Made with ❤️ by Leandro Arturi
-
