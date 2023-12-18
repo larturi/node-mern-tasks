@@ -9,8 +9,8 @@ RUN npm install
 COPY . .
 
 ENV PORT=4004
-ENV DB_MONGO=${DB_MONGO}
-ENV JWT_SECRET=${JWT_SECRET}
+ENV DB_MONGO=mongodb://entriesdb:27017/merntasksdb
+ENV JWT_SECRET=asdf1234zxcv
 
 EXPOSE 4004
 
